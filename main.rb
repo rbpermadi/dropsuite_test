@@ -23,19 +23,21 @@ def most_identical_content (base_path)
   max = file_path_counter.max_by{|k,v| v}
 
   if max.nil?
-      {content: "", count: 0, message: "there is no file in this directory"}
+      {content: "", count: nil, message: "there is no file in this directory"}
   else
       content = File.open(max[0])
       {content: content.read, count: max[1], message: ""}
   end
 end
 
-base_path = '/Users/rojalibudipermadi/Downloads/DropsuiteTest'
-result = most_identical_content base_path
-print result
-print "\n"
-
-base_path = '/Users/rojalibudipermadi/Downloads/DropsuiteTest/C'
-result = most_identical_content base_path
-print result
-print "\n"
+status = true
+while status
+    print "\nPlease input the directory full path : "
+    base_path = gets.to_s.rstrip
+    result = most_identical_content base_path
+    print "#{result[:content]} #{result[:count].to_s}\n"
+    print "Message : #{result[:message]}\n" unless result[:message].empty?
+    print "\nDo you want to try again? (y/n) "
+    answer = gets.to_s.rstrip
+    status = false if answer == "n"
+end
