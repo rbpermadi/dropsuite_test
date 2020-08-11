@@ -20,10 +20,22 @@ def most_identical_content (base_path)
     end
   end
 
-  return file_path_counter
+  max = file_path_counter.max_by{|k,v| v}
+
+  if max.nil?
+      {content: "", count: 0, message: "there is no file in this directory"}
+  else
+      content = File.open(max[0])
+      {content: content.read, count: max[1], message: ""}
+  end
 end
 
 base_path = '/Users/rojalibudipermadi/Downloads/DropsuiteTest'
+result = most_identical_content base_path
+print result
+print "\n"
+
+base_path = '/Users/rojalibudipermadi/Downloads/DropsuiteTest/C'
 result = most_identical_content base_path
 print result
 print "\n"
